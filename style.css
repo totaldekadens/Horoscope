@@ -28,7 +28,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 70vh;
     text-align: center;
 }
 
@@ -69,6 +69,67 @@ input[type=date]:focus {
     color: rgba(99, 168, 247, 0.781);
 }
 
+
+
+
+/* Horoscope */
+
+
+h1, h3, p{
+    color: white;
+}
+
+.horoscope {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 600px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.356);
+} 
+
+.imageContainer {
+width: 300px;
+}
+
+img {
+width: 100%;
+}
+
+.containerContent {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-content: center;
+align-items: center;
+width: 600px;
+} 
+
+.starSign {
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.buttons {
+    display: flex;
+    margin-top: 30px;
+    gap: 20px;
+}
+
 .btn  {
     display: flex;
     justify-content: center;
@@ -84,12 +145,10 @@ input[type=date]:focus {
     transition: transform 1s;
 }
 
+.btn2 {
+    width: 200px;
+}
+
 .btn:hover {
     transform: scale(1.1);
 }
-
-.buttons {
-    display: flex;
-    gap: 25px;
-}
-
