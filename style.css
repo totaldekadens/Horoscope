@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#myVideo{
+    min-width: 100%;
+    min-height: 100%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.birth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.label{
+    display: block;
+    margin-bottom: 30px;
+    font-size: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Parisienne', cursive;
+    font-family: 'Playfair Display', serif;
+    color: rgba(255, 255, 255, 0.753);
+}
+
+input[type=date] {
+    text-align: center;
+    font-family: 'Parisienne', cursive;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.377);
+    color: rgba(162, 205, 255, 0.63);
+    height: 60px;
+    width: 200px;
+
+}
+
+input[type=date]:focus {
+    background: rgba(0, 0, 0, 0.377);
+    color: rgba(99, 168, 247, 0.781);
+}
+
+.btn  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 20px;
+    height: 40px;
+    font-family: 'Parisienne', cursive;
+    font-family: 'Playfair Display', serif;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.281);
+    color: white;
+    transition: transform 1s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.buttons {
+    display: flex;
+    gap: 25px;
+}
+

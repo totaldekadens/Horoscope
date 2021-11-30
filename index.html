@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horoskop</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700;1,800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<main>
+    <video autoplay loop muted id="myVideo">
+        <source src="./assets/stars.mp4" type="video/mp4">
+      Your browser does not support the background.
+    </video>
+    <section class="horoscope">
+        <!-- Here will the horoscope appear in javascript -->
+    </section>
+    <section class="birth">
+        <h1 class="label" for="birthday">Please enter your birthday</h1>
+        <form action="/">
+            <input type="date" id="birthday" name="birthday">
+            <div class="btn" type="submit">Get my horoscope</div>
+        </form>
+    </section>  
+    <section class="buttons"> <!-- Kolla om dessa skall läggas in i js senare. Får vara här sålänge under uppbyggnaden -->
+        <div class="btn" id="save">Save my horoscope</div>
+        <div class="btn" id="update" >Update my horoscope</div>
+        <div class="btn" id="delete">Delete my horoscope</div>
+    </section>
+
+
+</main>
+    
+</body>
+</html>
