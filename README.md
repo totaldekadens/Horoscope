@@ -88,3 +88,4 @@ När man först går ut på sidan ska även div:en uppdateras via ett anrop till
 
 
 Länk till repo: https://github.com/totaldekadens/Horoscope/
+Länk till hemsida: https://totaldekadens.github.io/Horoscope/
