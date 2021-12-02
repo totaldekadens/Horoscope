@@ -1,5 +1,10 @@
+<!-- JS: Sidan ska bara gå att begära via GET, PHP: den ska kolla om ett horoskop finns sparat i $_SESSION 
+och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. -->
+
+
 <?php
 
+// Skall denna ha en egen php-fil? 
 // Test - If-sats
 $valueFromClient = "2021-01-22";
 
