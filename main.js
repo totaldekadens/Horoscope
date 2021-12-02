@@ -84,6 +84,7 @@ function getBack(){
     och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. */
 function viewHoroscope(){
 
+    document.querySelector(".btnArrow").classList.add("hidden")
     document.querySelector(".buttons").classList.add("hidden")
 
     document.querySelector("#getBtn").addEventListener("click", () => {
