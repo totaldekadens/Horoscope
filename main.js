@@ -71,7 +71,7 @@ function viewHoroscope(){
 document.querySelector("#getBtn").addEventListener("click", () => {
     // Sålänge
     document.querySelector(".horoscope").classList.remove("hidden")
-
+    document.querySelector(".birth").classList.add("hidden")
 })
 }
 
@@ -114,6 +114,8 @@ function addHoroscope(){
 function updateHoroscope(){
 
     console.log("Du kom in i updateHoroscope")
+    document.querySelector(".horoscope").classList.add("hidden") 
+    document.querySelector(".birth").classList.remove("hidden")
     
 }
 
@@ -133,6 +135,7 @@ function updateHoroscope(){
 function deleteHoroscope(){
     //Sålänge
     document.querySelector(".horoscope").classList.add("hidden") 
+    document.querySelector(".birth").classList.remove("hidden")
     console.log("Du kom in i deleteHoroscope")
 
 }
