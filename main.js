@@ -60,7 +60,7 @@ update.classList.add("btn")
 update.setAttribute("id", "update1")
 update.innerText = "Uppdatera mitt horoskop"
 buttons.appendChild(update) 
-update.addEventListener("click", updateHoroscope)
+update.addEventListener("click", updateH)
 
 let deleteBtn = document.createElement("div")
 deleteBtn.classList.add("btn")
@@ -84,11 +84,13 @@ function getBack(){
     och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. */
 function viewHoroscope(){
 
-    document.querySelector(".btnArrow").classList.add("hidden")
-    document.querySelector(".buttons").classList.add("hidden")
-
-    document.querySelector("#getBtn").addEventListener("click", () => {
-        // Sålänge
+        console.log("Du har kommit viewHoroscope")
+        document.querySelector(".btnArrow").classList.add("hidden")
+        document.querySelector(".buttons").classList.add("hidden")
+        
+        // Hämta mitt horoskop-knapp
+        document.querySelector("#getBtn").addEventListener("click", () => {
+        
         document.querySelector(".horoscope").classList.remove("hidden")
         document.querySelector(".birth").classList.add("hidden")
         document.querySelector(".buttons").classList.remove("hidden")
@@ -97,6 +99,11 @@ function viewHoroscope(){
         document.querySelector("#save1").classList.remove("hidden")
         document.querySelector(".btnArrow").classList.remove("hidden")
     })
+
+    // Tänker: IF något finns i session = Direkt till horoskopet och hämta det som är sparat. Då kommer man inte ens till valet av datum. 
+    // ELSE något inte finns i session = Då är man vid datumet och kan välja att hämta det horoskop man vill se och sedan spara i addHoroscope. 
+    // Funkar?  
+    // Fetch sker här! Hämta GET för att se vilken man har fått och sedan väljer spara via "Spara mitt horoskop" istället. funkar? 
 }
 
 
@@ -120,7 +127,6 @@ function addHoroscope(){
 
     console.log("Du kom in i addHoroscope")
 
-
     // Localstorage sålänge för att med knapparna. Skall bort sen.
     localStorage.setItem("saved", "sparat horoskop")
     let saved = localStorage.getItem("saved")
@@ -133,6 +139,22 @@ function addHoroscope(){
     }
 
 }
+
+
+// Kommer till val av datum och sedan en ny uppdatera-knapp
+function updateH(){
+
+    let updateButton = document.querySelector("#updateBtn")
+    updateButton.classList.remove("hidden")
+    updateButton.addEventListener("click", updateHoroscope)
+    document.querySelector("#getBtn").classList.add("hidden")
+    document.querySelector(".horoscope").classList.add("hidden") 
+    document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+    
+}
+
 
 // UPDATE
 /*  Sidan ska bara gå att begära via POST. PHP: den ska kolla efter ett födelsedatum i POST datan.
@@ -147,14 +169,20 @@ function addHoroscope(){
     
     När man först går ut på sidan ska även div:en uppdateras via ett anrop till viewHoroscope, 
     det är smart att spara detta anrop i en funktion och anropa det i slutet av varje knapps onClick funktion.*/    
-function updateHoroscope(){
 
-    console.log("Du kom in i updateHoroscope")
-    document.querySelector(".horoscope").classList.add("hidden") 
-    document.querySelector(".birth").classList.remove("hidden")
-    document.querySelector("#update1").classList.add("hidden")
-    document.querySelector("#delete1").classList.add("hidden")
-    
+function updateHoroscope() {
+
+    console.log("Du har kommit till updateHoroscope")
+    document.querySelector(".horoscope").classList.remove("hidden")
+    document.querySelector(".birth").classList.add("hidden")
+    document.querySelector(".buttons").classList.remove("hidden")
+    document.querySelector("#update1").classList.remove("hidden")
+    document.querySelector("#delete1").classList.remove("hidden")
+    document.querySelector("#save1").classList.add("hidden")
+    document.querySelector(".btnArrow").classList.add("hidden")
+
+
+
 }
 
 
@@ -172,6 +200,9 @@ function updateHoroscope(){
     det är smart att spara detta anrop i en funktion och anropa det i slutet av varje knapps onClick funktion. */    
 function deleteHoroscope(){
     //Sålänge
+    console.log("Du kom in i deleteHoroscope")
+    document.querySelector("#updateBtn").classList.add("hidden")
+    document.querySelector("#getBtn").classList.remove("hidden")
     document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
     document.querySelector("#update1").classList.add("hidden")
