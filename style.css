@@ -6,7 +6,7 @@ body {
     margin: 0px;
 }
 
-main {
+main, .birth, form, .horoscope, .container, .containerContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,27 +16,22 @@ main {
 
 #myVideo{
     min-width: 100%;
-    min-height: 100%;
+    min-height: 100%; 
+    object-fit: fill;
     position: fixed;
     right: 0;
     bottom: 0;
+    left:0;
+    top: 0;
     z-index: -1;
 }
 
 .birth {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+    height: 100vh; 
     text-align: center;
 }
 
 form{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
     text-align: center;
 }
 
@@ -70,8 +65,6 @@ input[type=date]:focus {
 }
 
 
-
-
 /* Horoscope */
 
 
@@ -80,41 +73,57 @@ h1, h3, p{
 }
 
 .horoscope {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+    animation: fadeIn 3s;
+    -webkit-animation: fadeIn 3s;
+    -moz-animation: fadeIn 3s;
+    -o-animation: fadeIn 3s;
+    -ms-animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+
+.container, .containerContent {
+    width: 600px;
+
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
     margin-top: 100px;
-    width: 600px;
     border-radius: 30px;
     background-color: rgba(0, 0, 0, 0.356);
 } 
 
 .imageContainer {
-width: 300px;
+    width: 300px;
 }
 
 img {
-width: 100%;
+    width: 100%;
 }
-
-.containerContent {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-content: center;
-align-items: center;
-width: 600px;
-} 
 
 .starSign {
     color: white;
@@ -122,11 +131,16 @@ width: 600px;
 
 .hidden {
     display: none;
+
 }
 
 .buttons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     gap: 20px;
 }
 
@@ -137,6 +151,7 @@ width: 600px;
     cursor: pointer;
     margin-top: 20px;
     height: 40px;
+    width: 200px;
     font-family: 'Parisienne', cursive;
     font-family: 'Playfair Display', serif;
     border-radius: 5px;
@@ -145,10 +160,65 @@ width: 600px;
     transition: transform 1s;
 }
 
-.btn2 {
+.btn:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.493);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.521);
+}
+
+
+@media screen and (max-width: 700px) {
+
+.container{    
+    width: 420px;
+}
+
+.label {
+    font-size: 25px;
+}
+
+.containerContent{
+    width: 250px;
+}
+
+}
+
+@media screen and (max-width: 500px) {
+
+.container{    
+    width: 300px;
+    margin-top: 50px;
+}
+
+.label {
+    font-size: 22px;
+}
+
+.imageContainer {
+    width: 200px;
+    }
+
+.birth {
+    height: 90vh; 
+}
+}
+
+@media screen and (max-width: 350px) {
+
+.container{    
     width: 200px;
 }
 
-.btn:hover {
-    transform: scale(1.1);
+.label {
+    font-size: 20px;
 }
+
+.imageContainer {
+    width: 150px;
+    }
+
+h3 {
+    font-size: 15px;
+}    
+
+}    
