@@ -1,6 +1,7 @@
 <!-- JS: Sidan ska bara gå att begära via GET, PHP: den ska kolla om ett horoskop finns sparat i $_SESSION 
 och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. -->
 
+session_start();
 
 <?php
 
@@ -15,6 +16,7 @@ $valueFromClient = "2021-01-22";
     echo $vattumannen = array(
         "name" => "Vattumannen",
         "image" => "aquarius.png",
+        "date" => "2021-08-24 - 2021-09-23"
         );
     
     echo "<br>";    
