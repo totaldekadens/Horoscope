@@ -7,6 +7,7 @@ function onLoad(){
 
 function addContentToWebpage(){
 
+let main = document.getElementsByTagName("main")[0]
 let horoscope = document.querySelector(".horoscope")
 
 let container = document.createElement("div")
@@ -37,7 +38,15 @@ containerContent.appendChild(starSign)
 let buttons = document.createElement("div")
 buttons.classList.add("buttons")
 buttons.setAttribute("id", "buttons1")
-horoscope.appendChild(buttons) 
+main.appendChild(buttons) 
+
+let back = document.createElement("div")
+back.classList.add("btn")
+back.classList.add("btnArrow")
+back.setAttribute("id", "back")
+back.innerHTML = '<i class="fas fa-arrow-left"></i>'
+main.appendChild(back) 
+back.addEventListener("click", getBack)
 
 let save = document.createElement("div")
 save.classList.add("btn")
@@ -62,22 +71,36 @@ deleteBtn.addEventListener("click", deleteHoroscope)
 
 }
 
+function getBack(){
+    document.querySelector(".horoscope").classList.add("hidden") 
+    document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#save1").classList.add("hidden")
+    document.querySelector(".btnArrow").classList.add("hidden")
+}
+
 
 // VIEW
 /*  Sidan ska bara gå att begära via GET, den ska kolla om ett horoskop finns sparat i $_SESSION
     och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. */
 function viewHoroscope(){
 
-document.querySelector("#getBtn").addEventListener("click", () => {
-    // Sålänge
-    document.querySelector(".horoscope").classList.remove("hidden")
-    document.querySelector(".birth").classList.add("hidden")
-})
+    document.querySelector(".buttons").classList.add("hidden")
+
+    document.querySelector("#getBtn").addEventListener("click", () => {
+        // Sålänge
+        document.querySelector(".horoscope").classList.remove("hidden")
+        document.querySelector(".birth").classList.add("hidden")
+        document.querySelector(".buttons").classList.remove("hidden")
+        document.querySelector("#update1").classList.add("hidden")
+        document.querySelector("#delete1").classList.add("hidden")
+        document.querySelector("#save1").classList.remove("hidden")
+        document.querySelector(".btnArrow").classList.remove("hidden")
+    })
 }
 
 
 
-// ADD
+// ADD / Save
 /*  Sidan ska bara gå att begära via POST, PHP: den ska kolla efter ett födelsedatum i $_POST, 
     räkna ut vilket horoskop födelsedatumet tillhör och spara det i $_SESSION.
     Om ett horoskop redan finns sparat ska det inte skrivas över. 
@@ -95,6 +118,18 @@ document.querySelector("#getBtn").addEventListener("click", () => {
 function addHoroscope(){
 
     console.log("Du kom in i addHoroscope")
+
+
+    // Localstorage sålänge för att med knapparna. Skall bort sen.
+    localStorage.setItem("saved", "sparat horoskop")
+    let saved = localStorage.getItem("saved")
+
+    if (saved){
+        document.querySelector(".btnArrow").classList.add("hidden")
+        document.querySelector("#save1").classList.add("hidden")
+        document.querySelector("#update1").classList.remove("hidden")
+        document.querySelector("#delete1").classList.remove("hidden")
+    }
 
 }
 
@@ -116,6 +151,8 @@ function updateHoroscope(){
     console.log("Du kom in i updateHoroscope")
     document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
     
 }
 
@@ -136,7 +173,11 @@ function deleteHoroscope(){
     //Sålänge
     document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
-    console.log("Du kom in i deleteHoroscope")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+    document.querySelector("#save1").classList.add("hidden")
+    localStorage.clear();
+    localStorage.getItem("saved")
 
 }
 

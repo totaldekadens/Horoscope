@@ -72,7 +72,7 @@ h1, h3, p{
     color: white;
 }
 
-.horoscope, .birth {
+.horoscope, .birth, .buttons, .btn {
     animation: fadeIn 3s;
     -webkit-animation: fadeIn 3s;
     -moz-animation: fadeIn 3s;
@@ -129,11 +129,6 @@ img {
     color: white;
 }
 
-.hidden {
-    display: none;
-
-}
-
 .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -166,6 +161,19 @@ img {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.521);
 }
 
+.btnArrow {
+    position: fixed;
+    left: 20px;
+    top:10px;
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
 
 @media screen and (max-width: 700px) {
 
@@ -179,6 +187,14 @@ img {
 
 .containerContent{
     width: 250px;
+}
+
+.btnArrow {
+    left: 20px;
+    bottom:10px;
+    top:unset;
+    width: 50px;
+    height: 50px;
 }
 
 }

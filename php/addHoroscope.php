@@ -4,3 +4,5 @@ Om ett horoskop redan finns sparat ska det inte skrivas över. Om det inte gick 
 horoskopet ska ingenting sparas.
 Sidan ska inte använda echo eller skriva någon output förutom true eller false, 
 beroende på om horoskopet sparades. -->
+
+session_start();
