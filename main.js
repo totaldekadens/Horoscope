@@ -1,116 +1,11 @@
 
-// Denna lista skall konverteras till PHP sen. 
+function onLoad(){
+    addContentToWebpage();
+    viewHoroscope();
+}
 
-let horoskop = [{
-    date: "21 januari – 18 februari",
-    name: "Vattumannen",
-    latin: "Aquarius",
-    element: "Luft",
-    planet: "Saturnus/Uranus",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "	19 februari –19 mars",
-    name: "Fiskarna",
-    latin: "Pisces",
-    element: "Vatten",
-    planet: "Neptunus/Jupiter",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "20 mars – 19 april",
-    name: "Väduren",
-    latin: "Aries",
-    element: "Eld",
-    planet: "Mars/Pluto	",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "20 april –20 maj",
-    name: "Oxen",
-    latin: "Taurus",
-    element: "Jord",
-    planet: "Venus",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "21 maj –20 juni",
-    name: "Tvillingarna",
-    latin: "Gemini",
-    element: "Luft",
-    planet: "Merkurius",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "21 juni –21 juli",
-    name: "Kräftan",
-    latin: "Cancer",
-    element: "Vatten",
-    planet: "Månen",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "22 juli – 22 augusti",
-    name: "Lejonet",
-    latin: "Leo",
-    element: "Eld",
-    planet: "Solen",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "23 augusti – 22 september",
-    name: "Jungfrun",
-    latin: "Virgo",
-    element: "Jord",
-    planet: "Merkurius",
-    match: "",
-    nomatch: "",
-    future: "",
-    image: "virgo.png"
-},{
-    date: "23 september – 22 oktober",
-    name: "	Vågen",
-    latin: "Libra",
-    element: "Alla",
-    planet: "Venus",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "23 oktober – 21 november",
-    name: "Skorpionen",
-    latin: "Scorpius",
-    element: "Vatten",
-    planet: "Mars",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "22 november– 21 december",
-    name: "Skytten",
-    latin: "Sagittarius",
-    element: "Eld",
-    planet: "Jupiter",
-    match: "",
-    nomatch: "",
-    future: ""
-},{
-    date: "22 december – 20 januari",
-    name: "Stenbocken",
-    latin: "Capricornus",
-    element: "Jord",
-    planet: "Saturnus",
-    match: "",
-    nomatch: "",
-    future: ""
-}]
+
+function addContentToWebpage(){
 
 let horoscope = document.querySelector(".horoscope")
 
@@ -119,7 +14,7 @@ container.classList.add("container")
 horoscope.appendChild(container)
 
 let date = document.createElement("h3")
-date.innerText = "22 december – 20 januari"
+date.innerText = "24 augusti – 23 september"
 container.appendChild(date)
 
 let imageContainer = document.createElement("div")
@@ -136,32 +31,8 @@ containerContent.classList.add("containerContent")
 container.appendChild(containerContent)
 
 let starSign = document.createElement("h1")
-starSign.innerText = "Jungfru"
+starSign.innerText = "Jungfrun"
 containerContent.appendChild(starSign)
-
-let latin = document.createElement("p")
-latin.innerHTML = "<strong>Latin: </strong>" + "Virgo"
-containerContent.appendChild(latin)
-
-let element = document.createElement("p")
-element.innerHTML = "<strong>Element: </strong>" + "Jord"
-containerContent.appendChild(element)
-
-let planet = document.createElement("p")
-planet.innerHTML = "<strong>Planet: </strong>" + "Merkurius"
-containerContent.appendChild(planet)
-
-let match = document.createElement("p")
-match.innerHTML = "<strong>Du matchar med: </strong>" + "Vattumannen"
-containerContent.appendChild(match)
-
-let nomatch = document.createElement("p")
-nomatch.innerHTML = "<strong>Du matchar inte med: </strong>" + "Kräftan"
-containerContent.appendChild(nomatch)
-
-let future = document.createElement("p")
-future.innerHTML = "<strong>Framtid: </strong>" + "År 2022 kommer blir ditt absolut bästa år!"
-containerContent.appendChild(future)
 
 let buttons = document.createElement("div")
 buttons.classList.add("buttons")
@@ -170,36 +41,68 @@ horoscope.appendChild(buttons)
 
 let save = document.createElement("div")
 save.classList.add("btn")
-save.classList.add("btn2")
 save.setAttribute("id", "save1")
 save.innerText = "Spara mitt horoskop"
 buttons.appendChild(save) 
-save.addEventListener("click", () => {
-
-    // Lägg till fetchfunktion för save
-
-})
+save.addEventListener("click", addHoroscope)
 
 let update = document.createElement("div")
 update.classList.add("btn")
-update.classList.add("btn2")
 update.setAttribute("id", "update1")
 update.innerText = "Uppdatera mitt horoskop"
 buttons.appendChild(update) 
-update.addEventListener("click", () => {
-
-    // Lägg till fetchfunktion för update
-
-})
+update.addEventListener("click", updateHoroscope)
 
 let deleteBtn = document.createElement("div")
 deleteBtn.classList.add("btn")
-deleteBtn.classList.add("btn2")
 deleteBtn.setAttribute("id", "delete1")
 deleteBtn.innerText = "Radera mitt horoskop"
 buttons.appendChild(deleteBtn) 
-deleteBtn.addEventListener("click", () => {
+deleteBtn.addEventListener("click", deleteHoroscope)
 
-    // Lägg till fetchfunktion för delete
+}
+
+
+
+
+function viewHoroscope(){
+
+document.querySelector("#getBtn").addEventListener("click", () => {
+    // Sålänge
+    document.querySelector(".horoscope").classList.remove("hidden")
 
 })
+
+}
+
+
+
+
+function addHoroscope(){
+
+    console.log("Du kom in i addHoroscope")
+
+}
+
+
+
+function updateHoroscope(){
+
+    console.log("Du kom in i updateHoroscope")
+    
+}
+
+
+
+function deleteHoroscope(){
+    //Sålänge
+    document.querySelector(".horoscope").classList.add("hidden") 
+    console.log("Du kom in i deleteHoroscope")
+    
+}
+
+
+
+
+
+window.addEventListener("load", onLoad)
