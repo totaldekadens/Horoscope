@@ -5,6 +5,20 @@ session_start();
 
 <?php
 
+// Test input från FORM
+/* if(isset($_GET['submit'])){
+
+$input = htmlentities($_GET['birthday'])
+
+$result = myFunction($birthday);
+}
+
+<?php if( isset($result) ) echo $result;
+ */
+
+
+
+
 // Skall denna ha en egen php-fil? 
 // Test - If-sats
 $valueFromClient = "2021-01-22";

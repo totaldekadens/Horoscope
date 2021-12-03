@@ -23,10 +23,10 @@
     </section>
     <section class="birth">
         <h1 class="label" for="birthday">Vilket datum fyller du år?</h1>
-        <form action="/">
+        <form action="/" method="get"> <!-- Get? -->
             <input type="date" id="birthday" name="birthday" min="2021-01-01" max="2021-12-31">
-            <div class="btn" id="getBtn" type="submit">Hämta mitt horoskop</div>
-            <div class="btn hidden" id="updateBtn" type="submit">Uppdatera mitt horoskop</div>
+            <div class="btn" id="getBtn" type="submit" name="submit" value="send">Hämta mitt horoskop</div>
+            <div class="btn hidden" id="updateBtn" type="submit" name="submit" value="send">Uppdatera mitt horoskop</div>
         </form>
     </section>  
 </main>
