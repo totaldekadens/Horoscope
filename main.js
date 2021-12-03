@@ -1,11 +1,33 @@
+// Detta försvinner sen när jag lärt mig session/php-delen
+////////////////////////////////////////////////////////////////////
+let SESSION = [
+    namnH = "Jungfrun",
+    datum = "24 augusti - 23 september",
+    image = "virgo.png"
+]
 
+let PHP = [
+    namnH = "Jungfrun",
+    datum = "24 augusti - 23 september",
+    image = "virgo.png"
+]
+
+localStorage.setItem("PHP", JSON.stringify(PHP))
+///////////////////////////////////////////////////////////////////////
+
+
+// Funktioner som startar direkt när sidan laddas
 function onLoad(){
     addContentToWebpage();
     viewHoroscope();
 }
 
-
+// Lägger till allt innehåll på sidan
 function addContentToWebpage(){
+
+console.log("Du har kommit in i addContentToWebpage")
+
+let session = localStorage.getItem("saved")
 
 let main = document.getElementsByTagName("main")[0]
 let horoscope = document.querySelector(".horoscope")
@@ -15,7 +37,7 @@ container.classList.add("container")
 horoscope.appendChild(container)
 
 let date = document.createElement("h3")
-date.innerText = "24 augusti – 23 september"
+date.classList.add("date")
 container.appendChild(date)
 
 let imageContainer = document.createElement("div")
@@ -23,7 +45,6 @@ imageContainer.classList.add("imageContainer")
 container.appendChild(imageContainer)
 
 let image = document.createElement("img")
-image.src =  "./assets/virgo.png"
 image.classList.add("image")
 imageContainer.appendChild(image)
 
@@ -32,7 +53,7 @@ containerContent.classList.add("containerContent")
 container.appendChild(containerContent)
 
 let starSign = document.createElement("h1")
-starSign.innerText = "Jungfrun"
+starSign.classList.add("starSign")
 containerContent.appendChild(starSign)
 
 let buttons = document.createElement("div")
@@ -69,8 +90,14 @@ deleteBtn.innerText = "Radera mitt horoskop"
 buttons.appendChild(deleteBtn) 
 deleteBtn.addEventListener("click", deleteHoroscope)
 
+document.querySelector("#getBtn").addEventListener("click", getHoroscope)
+
 }
 
+
+
+
+// Tillbaka-länk. Vad som sker när man trycker på pilen 
 function getBack(){
     document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
@@ -79,59 +106,91 @@ function getBack(){
 }
 
 
-// VIEW
-/*  Sidan ska bara gå att begära via GET, den ska kolla om ett horoskop finns sparat i $_SESSION
-    och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. */
-function viewHoroscope(){
 
-        console.log("Du har kommit viewHoroscope")
-        document.querySelector(".btnArrow").classList.add("hidden")
-        document.querySelector(".buttons").classList.add("hidden")
-        
-        // Hämta mitt horoskop-knapp
-        document.querySelector("#getBtn").addEventListener("click", () => {
-        
-        document.querySelector(".horoscope").classList.remove("hidden")
-        document.querySelector(".birth").classList.add("hidden")
-        document.querySelector(".buttons").classList.remove("hidden")
-        document.querySelector("#update1").classList.add("hidden")
-        document.querySelector("#delete1").classList.add("hidden")
-        document.querySelector("#save1").classList.remove("hidden")
-        document.querySelector(".btnArrow").classList.remove("hidden")
-    })
 
-    // Tänker: IF något finns i session = Direkt till horoskopet och hämta det som är sparat. Då kommer man inte ens till valet av datum. 
-    // ELSE något inte finns i session = Då är man vid datumet och kan välja att hämta det horoskop man vill se och sedan spara i addHoroscope. 
-    // Funkar?  
-    // Fetch sker här! Hämta GET för att se vilken man har fått och sedan väljer spara via "Spara mitt horoskop" istället. funkar? 
+
+// Anpassar info från SESSION
+function validData(namn, datum, bild){
+    console.log("Kommit in i validdata")
+
+    let starSign = document.querySelector(".starSign")
+    let date = document.querySelector(".date")
+    let image = document.querySelector(".image")
+
+    starSign.innerText = namn 
+    date.innerText = datum
+    image.src =  "./assets/" + bild
 }
 
 
 
-// ADD / Save
-/*  Sidan ska bara gå att begära via POST, PHP: den ska kolla efter ett födelsedatum i $_POST, 
-    räkna ut vilket horoskop födelsedatumet tillhör och spara det i $_SESSION.
-    Om ett horoskop redan finns sparat ska det inte skrivas över. 
-    Om det inte gick att räkna ut horoskopet ska ingenting sparas. */
+// Om något är sparat i session - printa ut. Annars inget. GET
+function viewHoroscope(){
 
-/*  onClick: ska göra ett anrop via fetch till addHoroscope.php med innehållet i input:en.
+        console.log("Du har kommit viewHoroscope")
 
-    Efter anropet, ska innehållet i div:en uppdateras.
+        let session = JSON.parse(localStorage.getItem("saved")) // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
+        
+        if(session){
+            document.querySelector(".horoscope").classList.remove("hidden")
+            document.querySelector(".birth").classList.add("hidden")
+            document.querySelector(".buttons").classList.remove("hidden")
+            document.querySelector("#update1").classList.remove("hidden")
+            document.querySelector("#delete1").classList.remove("hidden")
+            document.querySelector("#save1").classList.add("hidden")
+            document.querySelector(".btnArrow").classList.add("hidden")
 
-    Om ni vill ha stilpoäng så ska denna knapp bara synas om horoskopet 
-    inte är sparat ännu, eller annars inaktiveras - detta är inget krav.
-    
-    När man först går ut på sidan ska även div:en uppdateras via ett anrop till viewHoroscope, 
-    det är smart att spara detta anrop i en funktion och anropa det i slutet av varje knapps onClick funktion.*/
+            validData(session[0], session[1], session[2]) // Exempel som skall följa med från session
+        } else {
+        
+            document.querySelector(".btnArrow").classList.add("hidden")
+            document.querySelector(".buttons").classList.add("hidden") 
+
+        }
+}
+
+
+
+
+
+// "Hämta mitt horoskop"-knapp. Vill göra en GET- ID i php med input från klient. Hämta matchningen från listan och visa upp i klient. 
+//  Vill alltså inte spara i session i detta skede. 
+function getHoroscope(){
+    console.log("Du kom in i getHoroscope")
+
+    let php = JSON.parse(localStorage.getItem("PHP"))
+
+    if(php) {
+        validData(php[0], php[1], php[2]) // Exempel som skall följa med från session
+    } else {
+        
+        alert("Horoskåpet kunde inte hittas")
+    }
+
+    document.querySelector(".horoscope").classList.remove("hidden")
+    document.querySelector(".birth").classList.add("hidden")
+    document.querySelector(".buttons").classList.remove("hidden")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+    document.querySelector("#save1").classList.remove("hidden")
+    document.querySelector(".btnArrow").classList.remove("hidden")
+}
+
+
+
+
+
+// PHP: Här skall det göra en fetch med "POST". Ta hjälp av input med datum.
+// ska göra ett anrop via fetch till addHoroscope.php med innehållet i input:en.
+// Efter anropet,  ska innehållet i div:en uppdateras.
 function addHoroscope(){
 
     console.log("Du kom in i addHoroscope")
+  
+    localStorage.setItem ("saved", JSON.stringify(SESSION))     // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
+    let session = JSON.parse(localStorage.getItem("saved"))     // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
 
-    // Localstorage sålänge för att med knapparna. Skall bort sen.
-    localStorage.setItem("saved", "sparat horoskop")
-    let saved = localStorage.getItem("saved")
-
-    if (saved){
+    if(session){
         document.querySelector(".btnArrow").classList.add("hidden")
         document.querySelector("#save1").classList.add("hidden")
         document.querySelector("#update1").classList.remove("hidden")
@@ -141,7 +200,7 @@ function addHoroscope(){
 }
 
 
-// Kommer till val av datum och sedan en ny uppdatera-knapp
+// Första "uppdatera mitt horoskåp"-knappen. Kommer till val av datum och sedan en ny uppdatera-knapp. Inget från PHP på denna.
 function updateH(){
 
     let updateButton = document.querySelector("#updateBtn")
@@ -156,23 +215,13 @@ function updateH(){
 }
 
 
-// UPDATE
-/*  Sidan ska bara gå att begära via POST. PHP: den ska kolla efter ett födelsedatum i POST datan.
-    Räkna ut vilket horoskop födelsedatumet tillhör och uppdaterade det sparade horoskopet som finns i $_SESSION 
-    och skriva ut true. Om inget horoskop finns i $_SESSION ska sidan inte uppdatera något och skriva ut false --> */
 
-/*  onClick: ska göra ett anrop via fetch till updateHoroscope.php med innehållet i input:en. 
-    Efter anropet ska innehållet i div:en uppdateras.
-
-    Om ni vill ha stilpoäng så ska denna knapp inte synas eller vara inaktiverat om horoskopet 
-    inte är sparat ännu - detta är inget krav 
-    
-    När man först går ut på sidan ska även div:en uppdateras via ett anrop till viewHoroscope, 
-    det är smart att spara detta anrop i en funktion och anropa det i slutet av varje knapps onClick funktion.*/    
-
+// PHP: sidan ska bara gå att begära via POST. Ta hjälp av input med datum. 
+// ska göra ett anrop via fetch till updateHoroscope.php med innehållet i input:en. Efter anropet ska innehållet i div:en uppdateras.
 function updateHoroscope() {
 
     console.log("Du har kommit till updateHoroscope")
+
     document.querySelector(".horoscope").classList.remove("hidden")
     document.querySelector(".birth").classList.add("hidden")
     document.querySelector(".buttons").classList.remove("hidden")
@@ -180,27 +229,18 @@ function updateHoroscope() {
     document.querySelector("#delete1").classList.remove("hidden")
     document.querySelector("#save1").classList.add("hidden")
     document.querySelector(".btnArrow").classList.add("hidden")
-
-
-
 }
 
 
-// DELETE
-/*  Sidan ska bara gå att begära via DELETE, den ska ta bort det sparade horoskopet i $_SESSION 
-    och echo:a true. Om inget finns sparat ska den echo:a false. */
-
-/*  onClick: ska göra ett anrop via fetch till deleteHoroscope.php. Efter anropet ska innehållet 
-    i div:en uppdateras om horoskopet togs bort.
-
-    Om ni vill ha stilpoäng så ska denna knapp inte synas eller vara inaktiverat om horoskopet 
-    inte är sparat ännu - detta är inget krav
-
-    När man först går ut på sidan ska även div:en uppdateras via ett anrop till viewHoroscope, 
-    det är smart att spara detta anrop i en funktion och anropa det i slutet av varje knapps onClick funktion. */    
+// ska göra ett anrop via fetch till deleteHoroscope.php. 
+// Efter anropet ska innehållet i div:en uppdateras om horoskopet togs bort.
 function deleteHoroscope(){
-    //Sålänge
+    
     console.log("Du kom in i deleteHoroscope")
+
+    let session = JSON.parse(localStorage.getItem("saved")) // Få tillbaka True or False från session - localstorage sålänge för att kolla funktion
+    
+    if(session){
     document.querySelector("#updateBtn").classList.add("hidden")
     document.querySelector("#getBtn").classList.remove("hidden")
     document.querySelector(".horoscope").classList.add("hidden") 
@@ -208,8 +248,9 @@ function deleteHoroscope(){
     document.querySelector("#update1").classList.add("hidden")
     document.querySelector("#delete1").classList.add("hidden")
     document.querySelector("#save1").classList.add("hidden")
-    localStorage.clear();
+    localStorage.removeItem("saved");
     localStorage.getItem("saved")
+}
 
 }
 
