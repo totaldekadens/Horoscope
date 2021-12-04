@@ -263,9 +263,10 @@ function updateH(){
     updateButton.addEventListener("click", updateHoroscope)
     document.querySelector(".birth").classList.remove("hidden")
     document.querySelector("#getBtn").classList.add("hidden")
-    document.querySelector(".horoscope").classList.add("hidden") 
-    document.querySelector("#update1").classList.add("hidden")
-    document.querySelector("#delete1").classList.add("hidden")
+    document.querySelector("#myVideo").classList.add("blur")
+    document.querySelector(".horoscope").classList.add("blur")
+    document.querySelector(".buttons").classList.add("blur")
+    document.querySelector(".birth").classList.add("absolute")
     
 }
 
@@ -281,9 +282,14 @@ function updateHoroscope() {
     document.querySelector(".buttons").classList.remove("hidden")
     document.querySelector("#update1").classList.remove("hidden")
     document.querySelector("#delete1").classList.remove("hidden")
+    document.querySelector("#myVideo").classList.remove("blur")
+    document.querySelector(".horoscope").classList.remove("blur")
+    document.querySelector(".buttons").classList.remove("blur")
+    document.querySelector(".birth").classList.remove("absolute")
     document.querySelector(".birth").classList.add("hidden")
     document.querySelector("#save1").classList.add("hidden")
     document.querySelector(".btnArrow").classList.add("hidden")
+
 }
 
 

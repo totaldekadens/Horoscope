@@ -4,6 +4,7 @@
 
 body {
     margin: 0px;
+    background-color:rgb(0, 0, 77)
 }
 
 main, .birth, form, .horoscope, .container, .containerContent {
@@ -31,6 +32,16 @@ main, .birth, form, .horoscope, .container, .containerContent {
     text-align: center;
 }
 
+.absolute {
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+} 
+
+.blur {
+    filter: blur(8px); 
+}
+
 form{
     text-align: center;
 }
@@ -45,6 +56,7 @@ form{
     font-family: 'Playfair Display', serif;
     color: rgba(255, 255, 255, 0.753);
 }
+
 
 input[type=date] {
     text-align: center;
@@ -73,11 +85,11 @@ h1, h3, p{
 }
 
 .horoscope, .birth, .buttons, .btn {
-    animation: fadeIn 3s;
-    -webkit-animation: fadeIn 3s;
-    -moz-animation: fadeIn 3s;
-    -o-animation: fadeIn 3s;
-    -ms-animation: fadeIn 3s;
+    animation: fadeIn 2s;
+    -webkit-animation: fadeIn 2s;
+    -moz-animation: fadeIn 2s;
+    -o-animation: fadeIn 2s;
+    -ms-animation: fadeIn 2s;
 }
 
 @keyframes fadeIn {
@@ -105,6 +117,9 @@ h1, h3, p{
     100% {opacity:1;}
 }
 
+.horoscope {
+    margin-top: 0px;
+}
 
 .container, .containerContent {
     width: 600px;
@@ -145,18 +160,19 @@ img {
     align-items: center;
     cursor: pointer;
     margin-top: 20px;
-    height: 40px;
-    width: 200px;
+    height: 45px;
+    width: 220px;
+    font-size: 17px;
     font-family: 'Parisienne', cursive;
     font-family: 'Playfair Display', serif;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.281);
     color: white;
-    transition: transform 1s;
+    transition: transform 0.5s;
 }
 
 .btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
     background: rgba(0, 0, 0, 0.493);
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.521);
 }
@@ -182,7 +198,7 @@ img {
 }
 
 .label {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .containerContent{
@@ -219,7 +235,7 @@ img {
 }
 
 .label {
-    font-size: 22px;
+    font-size: 27px;
 }
 
 .imageContainer {
@@ -229,16 +245,17 @@ img {
 .birth {
     height: 90vh; 
 }
+
 }
 
 @media screen and (max-width: 350px) {
 
 .container{    
-    width: 200px;
+    width: 215px;
 }
 
 .label {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .imageContainer {
@@ -247,6 +264,31 @@ img {
 
 h3 {
     font-size: 15px;
-}    
+}   
+
+input[type=date]{
+    width: 190px;
+
+}
+
+.btn{
+height: 45px;
+width: 200px;
+font-size: 15px;
+}
+
+.btnArrow {
+    width: 50px;
+    font-size: 28px;
+}
 
 }    
+
+@media screen and (max-width: 300px) {
+
+.label {
+    font-size: 22px;
+}
+
+
+}
