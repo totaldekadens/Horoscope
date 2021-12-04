@@ -127,26 +127,59 @@ function changeData(namn, datum, bild){
 // Om något är sparat i session - printa ut. Annars inget. GET
 function viewHoroscope(){
 
-        console.log("Du har kommit viewHoroscope")
+    console.log("Du har kommit viewHoroscope")
 
-        let session = JSON.parse(localStorage.getItem("saved")) // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
+    let session = JSON.parse(localStorage.getItem("saved")) // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
         
-        if(session){
-            document.querySelector(".horoscope").classList.remove("hidden")
-            document.querySelector(".buttons").classList.remove("hidden")
-            document.querySelector("#update1").classList.remove("hidden")
-            document.querySelector("#delete1").classList.remove("hidden")
-            document.querySelector(".birth").classList.add("hidden")
-            document.querySelector("#save1").classList.add("hidden")
-            document.querySelector(".btnArrow").classList.add("hidden")
 
-            changeData(session[0], session[1], session[2]) // Exempel som skall följa med från session
-        } else {
-        
-            document.querySelector(".btnArrow").classList.add("hidden")
-            document.querySelector(".buttons").classList.add("hidden") 
+// Aktivera denna när Sessiondelen är fixad i PHP.          
+    /*let url = "./php/viewHoroscope.php"
 
-        }
+    
+    try {
+    let response = await fetch(url)
+    let result = await response.json()
+
+    console.log(result)
+
+    if(result) {
+        document.querySelector(".horoscope").classList.remove("hidden")
+        document.querySelector(".buttons").classList.remove("hidden")
+        document.querySelector("#update1").classList.remove("hidden")
+        document.querySelector("#delete1").classList.remove("hidden")
+        document.querySelector(".birth").classList.add("hidden")
+        document.querySelector("#save1").classList.add("hidden")
+        document.querySelector(".btnArrow").classList.add("hidden")
+        changeData(result.name, result.date, result.image)
+    } else {
+        document.querySelector(".btnArrow").classList.add("hidden")
+        document.querySelector(".buttons").classList.add("hidden") 
+    }
+
+    } catch(err){
+        console.log(err)
+        throw err
+    }  */
+
+
+    // Tas bort sedan
+    if(session){
+        document.querySelector(".horoscope").classList.remove("hidden")
+        document.querySelector(".buttons").classList.remove("hidden")
+        document.querySelector("#update1").classList.remove("hidden")
+        document.querySelector("#delete1").classList.remove("hidden")
+        document.querySelector(".birth").classList.add("hidden")
+        document.querySelector("#save1").classList.add("hidden")
+        document.querySelector(".btnArrow").classList.add("hidden")
+
+        changeData(session[0], session[1], session[2]) // Exempel som skall följa med från session
+
+    } else {
+    
+        document.querySelector(".btnArrow").classList.add("hidden")
+        document.querySelector(".buttons").classList.add("hidden") 
+
+    }
 }
 
 
@@ -155,17 +188,28 @@ function viewHoroscope(){
 
 // "Hämta mitt horoskop"-knapp. Vill göra en GET- ID i php med input från klient. Hämta matchningen från listan och visa upp i klient. 
 //  Vill alltså inte spara i session i detta skede. 
-function getHoroscope(){
+async function getHoroscope(){
     console.log("Du kom in i getHoroscope")
 
-    let php = JSON.parse(localStorage.getItem("PHP"))
+    let url = "./php/getHoroscope.php"
 
-    if(php) {
-        changeData(php[0], php[1], php[2]) // Exempel som skall följa med från session
-    } else {
-        
-        alert("Horoskåpet kunde inte hittas")
-    }
+    try {
+        let response = await fetch(url)
+        let result = await response.json()
+
+        console.log(result)
+
+        if(result) {
+            changeData(result.name, result.date, result.image)
+        } else {
+            
+            alert("Horoskåpet kunde inte hittas")
+        }
+
+    } catch(err){
+        console.log(err)
+        throw err
+    } 
 
     document.querySelector(".horoscope").classList.remove("hidden")
     document.querySelector("#save1").classList.remove("hidden")

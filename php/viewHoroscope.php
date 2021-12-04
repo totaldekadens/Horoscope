@@ -1,9 +1,10 @@
 <!-- JS: Sidan ska bara gå att begära via GET, PHP: den ska kolla om ett horoskop finns sparat i $_SESSION 
 och i så fall skriva ut det i output. Annars ska sidan inte skriva ut någonting. -->
 
-session_start();
 
 <?php
+
+session_start();
 
 // Test input från FORM
 /* if(isset($_GET['submit'])){
