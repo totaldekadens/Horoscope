@@ -99,8 +99,8 @@ document.querySelector("#getBtn").addEventListener("click", getHoroscope)
 
 // Tillbaka-länk. Vad som sker när man trycker på pilen 
 function getBack(){
-    document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector("#save1").classList.add("hidden")
     document.querySelector(".btnArrow").classList.add("hidden")
 }
@@ -109,9 +109,9 @@ function getBack(){
 
 
 
-// Anpassar info från SESSION
-function validData(namn, datum, bild){
-    console.log("Kommit in i validdata")
+// Anpassar info från SESSION / PHP-lista
+function changeData(namn, datum, bild){
+    console.log("Kommit in i changeData")
 
     let starSign = document.querySelector(".starSign")
     let date = document.querySelector(".date")
@@ -133,14 +133,14 @@ function viewHoroscope(){
         
         if(session){
             document.querySelector(".horoscope").classList.remove("hidden")
-            document.querySelector(".birth").classList.add("hidden")
             document.querySelector(".buttons").classList.remove("hidden")
             document.querySelector("#update1").classList.remove("hidden")
             document.querySelector("#delete1").classList.remove("hidden")
+            document.querySelector(".birth").classList.add("hidden")
             document.querySelector("#save1").classList.add("hidden")
             document.querySelector(".btnArrow").classList.add("hidden")
 
-            validData(session[0], session[1], session[2]) // Exempel som skall följa med från session
+            changeData(session[0], session[1], session[2]) // Exempel som skall följa med från session
         } else {
         
             document.querySelector(".btnArrow").classList.add("hidden")
@@ -161,19 +161,20 @@ function getHoroscope(){
     let php = JSON.parse(localStorage.getItem("PHP"))
 
     if(php) {
-        validData(php[0], php[1], php[2]) // Exempel som skall följa med från session
+        changeData(php[0], php[1], php[2]) // Exempel som skall följa med från session
     } else {
         
         alert("Horoskåpet kunde inte hittas")
     }
 
     document.querySelector(".horoscope").classList.remove("hidden")
-    document.querySelector(".birth").classList.add("hidden")
-    document.querySelector(".buttons").classList.remove("hidden")
-    document.querySelector("#update1").classList.add("hidden")
-    document.querySelector("#delete1").classList.add("hidden")
     document.querySelector("#save1").classList.remove("hidden")
     document.querySelector(".btnArrow").classList.remove("hidden")
+    document.querySelector(".buttons").classList.remove("hidden")
+    document.querySelector(".birth").classList.add("hidden")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+
 }
 
 
@@ -191,10 +192,10 @@ function addHoroscope(){
     let session = JSON.parse(localStorage.getItem("saved"))     // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
 
     if(session){
-        document.querySelector(".btnArrow").classList.add("hidden")
-        document.querySelector("#save1").classList.add("hidden")
         document.querySelector("#update1").classList.remove("hidden")
         document.querySelector("#delete1").classList.remove("hidden")
+        document.querySelector(".btnArrow").classList.add("hidden")
+        document.querySelector("#save1").classList.add("hidden")
     }
 
 }
@@ -206,9 +207,9 @@ function updateH(){
     let updateButton = document.querySelector("#updateBtn")
     updateButton.classList.remove("hidden")
     updateButton.addEventListener("click", updateHoroscope)
+    document.querySelector(".birth").classList.remove("hidden")
     document.querySelector("#getBtn").classList.add("hidden")
     document.querySelector(".horoscope").classList.add("hidden") 
-    document.querySelector(".birth").classList.remove("hidden")
     document.querySelector("#update1").classList.add("hidden")
     document.querySelector("#delete1").classList.add("hidden")
     
@@ -223,10 +224,10 @@ function updateHoroscope() {
     console.log("Du har kommit till updateHoroscope")
 
     document.querySelector(".horoscope").classList.remove("hidden")
-    document.querySelector(".birth").classList.add("hidden")
     document.querySelector(".buttons").classList.remove("hidden")
     document.querySelector("#update1").classList.remove("hidden")
     document.querySelector("#delete1").classList.remove("hidden")
+    document.querySelector(".birth").classList.add("hidden")
     document.querySelector("#save1").classList.add("hidden")
     document.querySelector(".btnArrow").classList.add("hidden")
 }
@@ -241,10 +242,11 @@ function deleteHoroscope(){
     let session = JSON.parse(localStorage.getItem("saved")) // Få tillbaka True or False från session - localstorage sålänge för att kolla funktion
     
     if(session){
-    document.querySelector("#updateBtn").classList.add("hidden")
+    
     document.querySelector("#getBtn").classList.remove("hidden")
-    document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#updateBtn").classList.add("hidden")
+    document.querySelector(".horoscope").classList.add("hidden") 
     document.querySelector("#update1").classList.add("hidden")
     document.querySelector("#delete1").classList.add("hidden")
     document.querySelector("#save1").classList.add("hidden")
