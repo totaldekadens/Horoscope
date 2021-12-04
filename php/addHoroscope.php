@@ -5,4 +5,7 @@ horoskopet ska ingenting sparas.
 Sidan ska inte använda echo eller skriva någon output förutom true eller false, 
 beroende på om horoskopet sparades. -->
 
-session_start();
+<?php 
+        session_start();
+
+        ?>
