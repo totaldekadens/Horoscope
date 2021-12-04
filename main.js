@@ -191,7 +191,17 @@ function viewHoroscope(){
 async function getHoroscope(){
     console.log("Du kom in i getHoroscope")
 
-    let url = "./php/getHoroscope.php"
+    let result = JSON.parse(localStorage.getItem("PHP")) // Tar bort den när syntaxfelet är fixat
+
+    if(result) {
+        changeData(result[0], result[1], result[2])
+    } else {
+        
+        alert("Horoskåpet kunde inte hittas")
+    }
+
+// Aktiver nära syntaxfelet är fixat! Issue: #23   
+/*     let url = "./php/getHoroscope.php"
 
     try {
         let response = await fetch(url)
@@ -209,7 +219,7 @@ async function getHoroscope(){
     } catch(err){
         console.log(err)
         throw err
-    } 
+    }  */
 
     document.querySelector(".horoscope").classList.remove("hidden")
     document.querySelector("#save1").classList.remove("hidden")
