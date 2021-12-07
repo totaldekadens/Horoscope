@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD']) {
     }else {
         echo json_encode(false); 
     }
-};
 
+} else {
+    echo json_encode(false); 
+};
 ?>

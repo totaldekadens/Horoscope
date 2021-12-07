@@ -7,16 +7,19 @@ if ($_SERVER['REQUEST_METHOD']) {
 
         if($_SERVER["REQUEST_METHOD"] == "DELETE") {
                
-                if($_SESSION) {
+                if($_SESSION["horoscope"]) {
                         session_destroy();
 
                         echo json_encode(true);
                 } else {
-                        echo json_encode(true);
+                        echo json_encode(false);
                 }
                
+        } else {
+                echo json_encode(false); 
+        } 
 
-        }
-}
-
+}else {
+        echo json_encode(false); 
+};
 ?>

@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD']) {
 
         if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                if($_SESSION) {
+                if($_SESSION["horoscope"]) {
                         $inputDate =  $_POST["inputDate"]; 
 
                         require_once("./listHoroscope.php");
@@ -16,11 +16,15 @@ if ($_SERVER['REQUEST_METHOD']) {
         
                         echo json_encode(true);
 
-                }else{
+                } else{
                         echo json_encode(false);
                 } 
-        }
 
+        } else {
+                echo json_encode(false); 
+        } 
+
+} else {
+        echo json_encode(false); 
 };
-
 ?>
