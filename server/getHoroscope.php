@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD']) {
         $horoscope = getOutput($_GET["input"]);
 
         echo json_encode($horoscope); 
-
-    };
+    }else {
+        echo json_encode(false); 
+    }
 };
 
 ?>

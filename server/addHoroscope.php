@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD']) {
                 $horoscope = getOutput($_POST["inputDate"]);
                 $_SESSION["horoscope"] = $horoscope;
 
-                echo json_encode(true);  // Hämtar den i view sedan i session
+                echo json_encode(true);
         } else {
                 echo json_encode(false);   
         }
