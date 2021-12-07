@@ -7,7 +7,7 @@ if($inputDate  >= "2021-01-21" && $inputDate  <= "2021-02-18") {
     $output = array(
         "name" => "Vattumannen",
         "image" => "aquarius.png",
-        "date" => "2021-08-24 - 2021-09-23"
+        "date" => "21 januari - 18 februari"
     );
     return $output;
 } else if($inputDate  >= "2021-02-19" && $inputDate  <= "2021-03-19"){
