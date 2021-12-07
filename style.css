@@ -128,15 +128,16 @@ h1, h3, p{
 .container {
     margin-top: 100px;
     border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.356);
+    background-color: rgba(0, 0, 0, 0.493);
 } 
 
 .imageContainer {
-    width: 250px;
+    max-width: 220px;
 }
 
 img {
     width: 100%;
+    object-fit: contain;
 }
 
 .starSign {
@@ -165,7 +166,7 @@ img {
     font-family: 'Parisienne', cursive;
     font-family: 'Playfair Display', serif;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.281);
+    background: rgba(0, 0, 0, 0.493);
     color: white;
     transition: transform 0.5s;
 }
