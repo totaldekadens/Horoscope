@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD']) {
 
         require_once("./listHoroscope.php");
         $horoscope = getOutput($_GET["input"]);
-        $_SESSION["horoscope"] = $horoscope;
 
         echo json_encode($horoscope); 
 
