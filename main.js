@@ -1,25 +1,8 @@
-// Detta försvinner sen när jag lärt mig session/php-delen
-////////////////////////////////////////////////////////////////////
-let SESSION = [
-    namnH = "Jungfrun",
-    datum = "24 augusti - 23 september",
-    image = "virgo.png"
-]
-
-let PHP = [
-    namnH = "Jungfrun",
-    datum = "24 augusti - 23 september",
-    image = "virgo.png"
-]
-
-localStorage.setItem("PHP", JSON.stringify(PHP))
-///////////////////////////////////////////////////////////////////////
-
 
 // Funktioner som startar direkt när sidan laddas
-function onLoad(){
-    addContentToWebpage();
-    viewHoroscope();
+async function onLoad(){
+     addContentToWebpage();
+     viewHoroscope();
 }
 
 // Lägger till allt innehåll på sidan
@@ -97,7 +80,7 @@ document.querySelector("#getBtn").addEventListener("click", getHoroscope)
 
 
 
-// Tillbaka-länk. Vad som sker när man trycker på pilen 
+// Tillbaka-länk. Går tillbaka ett steg
 function getBack(){
     document.querySelector(".birth").classList.remove("hidden")
     document.querySelector(".horoscope").classList.add("hidden") 
@@ -124,23 +107,16 @@ function changeData(namn, datum, bild){
 
 
 
-// Om något är sparat i session - printa ut. Annars inget. GET
-function viewHoroscope(){
+// Om något är sparat i session - Printas ut
+async function viewHoroscope(){
 
     console.log("Du har kommit viewHoroscope")
-
-    let session = JSON.parse(localStorage.getItem("saved")) // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
-        
-
-// Aktivera denna när Sessiondelen är fixad i PHP.          
-    /*let url = "./php/viewHoroscope.php"
-
+      
+    let url = "./server/viewHoroscope.php"
     
     try {
     let response = await fetch(url)
     let result = await response.json()
-
-    console.log(result)
 
     if(result) {
         document.querySelector(".horoscope").classList.remove("hidden")
@@ -150,7 +126,8 @@ function viewHoroscope(){
         document.querySelector(".birth").classList.add("hidden")
         document.querySelector("#save1").classList.add("hidden")
         document.querySelector(".btnArrow").classList.add("hidden")
-        changeData(result.name, result.date, result.image)
+        changeData(result.horoscope.name, result.horoscope.date, result.horoscope.image)
+
     } else {
         document.querySelector(".btnArrow").classList.add("hidden")
         document.querySelector(".buttons").classList.add("hidden") 
@@ -159,58 +136,39 @@ function viewHoroscope(){
     } catch(err){
         console.log(err)
         throw err
-    }  */
+    }  
 
-
-    // Tas bort sedan
-    if(session){
-        document.querySelector(".horoscope").classList.remove("hidden")
-        document.querySelector(".buttons").classList.remove("hidden")
-        document.querySelector("#update1").classList.remove("hidden")
-        document.querySelector("#delete1").classList.remove("hidden")
-        document.querySelector(".birth").classList.add("hidden")
-        document.querySelector("#save1").classList.add("hidden")
-        document.querySelector(".btnArrow").classList.add("hidden")
-
-        changeData(session[0], session[1], session[2]) // Exempel som skall följa med från session
-
-    } else {
-    
-        document.querySelector(".btnArrow").classList.add("hidden")
-        document.querySelector(".buttons").classList.add("hidden") 
-
-    }
 }
 
 
-
-
-
-// "Hämta mitt horoskop"-knapp. Vill göra en GET- ID i php med input från klient. Hämta matchningen från listan och visa upp i klient. 
-//  Vill alltså inte spara i session i detta skede. 
+// Hämtar horoskopet från lista. Sparas ej någonstans 
 async function getHoroscope(){
     console.log("Du kom in i getHoroscope")
 
-    let result = JSON.parse(localStorage.getItem("PHP")) // Tar bort den när syntaxfelet är fixat
-
-    if(result) {
-        changeData(result[0], result[1], result[2])
-    } else {
-        
-        alert("Horoskåpet kunde inte hittas")
-    }
-
-// Aktiver nära syntaxfelet är fixat! Issue: #23   
-/*     let url = "./php/getHoroscope.php"
-
     try {
+
+        const inputDate = document.querySelector("#birthday").value 
+        console.log(inputDate) 
+        let url = "./server/getHoroscope.php?input="+inputDate
+        
         let response = await fetch(url)
         let result = await response.json()
 
+        console.log(result.horoscope)
         console.log(result)
 
         if(result) {
+
             changeData(result.name, result.date, result.image)
+
+            document.querySelector(".horoscope").classList.remove("hidden")
+            document.querySelector("#save1").classList.remove("hidden")
+            document.querySelector(".btnArrow").classList.remove("hidden")
+            document.querySelector(".buttons").classList.remove("hidden")
+            document.querySelector(".birth").classList.add("hidden")
+            document.querySelector("#update1").classList.add("hidden")
+            document.querySelector("#delete1").classList.add("hidden")
+
         } else {
             
             alert("Horoskåpet kunde inte hittas")
@@ -219,38 +177,43 @@ async function getHoroscope(){
     } catch(err){
         console.log(err)
         throw err
-    }  */
-
-    document.querySelector(".horoscope").classList.remove("hidden")
-    document.querySelector("#save1").classList.remove("hidden")
-    document.querySelector(".btnArrow").classList.remove("hidden")
-    document.querySelector(".buttons").classList.remove("hidden")
-    document.querySelector(".birth").classList.add("hidden")
-    document.querySelector("#update1").classList.add("hidden")
-    document.querySelector("#delete1").classList.add("hidden")
+    } 
 
 }
 
 
 
-
-
-// PHP: Här skall det göra en fetch med "POST". Ta hjälp av input med datum.
-// ska göra ett anrop via fetch till addHoroscope.php med innehållet i input:en.
-// Efter anropet,  ska innehållet i div:en uppdateras.
-function addHoroscope(){
+// Lägger till horoskop i session
+async function addHoroscope(){
 
     console.log("Du kom in i addHoroscope")
-  
-    localStorage.setItem ("saved", JSON.stringify(SESSION))     // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
-    let session = JSON.parse(localStorage.getItem("saved"))     // Använder localstorage så länge för att få til funktionerna. Byts ut sedan
 
-    if(session){
-        document.querySelector("#update1").classList.remove("hidden")
-        document.querySelector("#delete1").classList.remove("hidden")
-        document.querySelector(".btnArrow").classList.add("hidden")
-        document.querySelector("#save1").classList.add("hidden")
+    try {
+
+        const inputDate = document.querySelector("#birthday").value 
+
+        let body = new FormData() 
+        body.set("inputDate", inputDate)
+
+        let response = await fetch("./server/addHoroscope.php", {
+            method: "POST", 
+            body: body})
+
+        let result = response.json()
+        
+      if(result){
+            document.querySelector("#update1").classList.remove("hidden")
+            document.querySelector("#delete1").classList.remove("hidden")
+            document.querySelector(".btnArrow").classList.add("hidden")
+            document.querySelector("#save1").classList.add("hidden")
+        }
+
+    } catch(err) {
+        console.log(err)
+
     }
+
+    viewHoroscope();
 
 }
 
@@ -271,53 +234,77 @@ function updateH(){
 }
 
 
-
-// PHP: sidan ska bara gå att begära via POST. Ta hjälp av input med datum. 
-// ska göra ett anrop via fetch till updateHoroscope.php med innehållet i input:en. Efter anropet ska innehållet i div:en uppdateras.
-function updateHoroscope() {
+ 
+async function updateHoroscope() {
 
     console.log("Du har kommit till updateHoroscope")
 
-    document.querySelector(".horoscope").classList.remove("hidden")
-    document.querySelector(".buttons").classList.remove("hidden")
-    document.querySelector("#update1").classList.remove("hidden")
-    document.querySelector("#delete1").classList.remove("hidden")
-    document.querySelector("#myVideo").classList.remove("blur")
-    document.querySelector(".horoscope").classList.remove("blur")
-    document.querySelector(".buttons").classList.remove("blur")
-    document.querySelector(".birth").classList.remove("absolute")
-    document.querySelector(".birth").classList.add("hidden")
-    document.querySelector("#save1").classList.add("hidden")
-    document.querySelector(".btnArrow").classList.add("hidden")
+    try {
+
+        const inputDate = document.querySelector("#birthday").value 
+
+        let body = new FormData() 
+        body.set("inputDate", inputDate)
+
+        let response = await fetch("./server/updateHoroscope.php", {
+            method: "POST", 
+            body: body})
+
+        let result = response.json()
+
+        if(result){
+
+            document.querySelector(".horoscope").classList.remove("hidden")
+            document.querySelector(".buttons").classList.remove("hidden")
+            document.querySelector("#update1").classList.remove("hidden")
+            document.querySelector("#delete1").classList.remove("hidden")
+            document.querySelector("#myVideo").classList.remove("blur")
+            document.querySelector(".horoscope").classList.remove("blur")
+            document.querySelector(".buttons").classList.remove("blur")
+            document.querySelector(".birth").classList.remove("absolute")
+            document.querySelector(".birth").classList.add("hidden")
+            document.querySelector("#save1").classList.add("hidden")
+            document.querySelector(".btnArrow").classList.add("hidden")
+        
+        }
+
+    }catch(err) {
+    console.log(err)
+    }
+
+    viewHoroscope();
 
 }
 
 
-// ska göra ett anrop via fetch till deleteHoroscope.php. 
-// Efter anropet ska innehållet i div:en uppdateras om horoskopet togs bort.
-function deleteHoroscope(){
+// Raderar horoskopet som är kopplat mot session.
+async function deleteHoroscope(){
     
     console.log("Du kom in i deleteHoroscope")
 
-    let session = JSON.parse(localStorage.getItem("saved")) // Få tillbaka True or False från session - localstorage sålänge för att kolla funktion
+    try {
+
+        let response = await fetch("./server/deleteHoroscope.php", {method: "DELETE"})
+
+        let result = response.json()
+        
+        if(result){
     
-    if(session){
-    
-    document.querySelector("#getBtn").classList.remove("hidden")
-    document.querySelector(".birth").classList.remove("hidden")
-    document.querySelector("#updateBtn").classList.add("hidden")
-    document.querySelector(".horoscope").classList.add("hidden") 
-    document.querySelector("#update1").classList.add("hidden")
-    document.querySelector("#delete1").classList.add("hidden")
-    document.querySelector("#save1").classList.add("hidden")
-    localStorage.removeItem("saved");
-    localStorage.getItem("saved")
+            document.querySelector("#getBtn").classList.remove("hidden")
+            document.querySelector(".birth").classList.remove("hidden")
+            document.querySelector("#updateBtn").classList.add("hidden")
+            document.querySelector(".horoscope").classList.add("hidden") 
+            document.querySelector("#update1").classList.add("hidden")
+            document.querySelector("#delete1").classList.add("hidden")
+            document.querySelector("#save1").classList.add("hidden")
+        }
+
+    } catch(err) {
+        console.log(err)
+    }
+
+    viewHoroscope();
 }
-
-}
-
-
-
 
 
 window.addEventListener("load", onLoad)
