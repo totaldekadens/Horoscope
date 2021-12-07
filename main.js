@@ -147,7 +147,7 @@ async function viewHoroscope(){
 
        if(result) {
 
-           changeData(result.horoscope.name, result.horoscope.date, result.horoscope.image)
+           changeData(result.name, result.date, result.image)
 
            document.querySelector(".horoscope").classList.remove("hidden")
            document.querySelector(".buttons").classList.remove("hidden")
