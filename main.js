@@ -5,6 +5,11 @@ function onLoad(){
     viewHoroscope();
 }
 
+
+
+
+
+
 // Lägger till allt innehåll på sidan
 function addContentToWebpage(){
 
@@ -70,35 +75,87 @@ deleteBtn.setAttribute("id", "delete1")
 deleteBtn.innerText = "Radera mitt horoskop"
 buttons.appendChild(deleteBtn) 
 deleteBtn.addEventListener("click", () => {
-   makeRequest2(deleteHoroscope,"./server/deleteHoroscope.php", "DELETE")
+   makeRequest(deleteHoroscope,"./server/deleteHoroscope.php", "DELETE")
 })
 
 document.querySelector("#getBtn").addEventListener("click", getHoroscope)
 
 }
 
+// Anpassar info från SESSION / PHP-lista
+function changeData(namn, datum, bild){
+
+    let starSign = document.querySelector(".starSign")
+    let date = document.querySelector(".date")
+    let image = document.querySelector(".image")
+ 
+    starSign.innerText = namn 
+    date.innerText = datum
+    image.src =  "./assets/" + bild
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funktioner som visar eller gömmer vissa element. 
+
+function addHidden(){
+    document.querySelector("#save1").classList.add("hidden")
+    document.querySelector(".btnArrow").classList.add("hidden")
+}
+
+function removeHidden(){
+    document.querySelector(".horoscope").classList.remove("hidden")
+    document.querySelector(".buttons").classList.remove("hidden")
+    document.querySelector("#update1").classList.remove("hidden")
+    document.querySelector("#delete1").classList.remove("hidden")
+}
+
+function addBlur(){
+    document.querySelector("#myVideo").classList.add("blur")
+    document.querySelector(".horoscope").classList.add("blur")
+    document.querySelector(".buttons").classList.add("blur")
+    document.querySelector(".birth").classList.add("absolute")
+}
+
+function removeBlur(){
+    document.querySelector("#myVideo").classList.remove("blur")
+    document.querySelector(".horoscope").classList.remove("blur")
+    document.querySelector(".buttons").classList.remove("blur")
+    document.querySelector(".birth").classList.remove("absolute")
+}
+
+
+
+
+
+
+
 // Tillbaka-länk. Går tillbaka ett steg
 function getBack(){
    document.querySelector(".birth").classList.remove("hidden")
    document.querySelector(".horoscope").classList.add("hidden") 
-   document.querySelector("#save1").classList.add("hidden")
-   document.querySelector(".btnArrow").classList.add("hidden")
-}
-
-// Anpassar info från SESSION / PHP-lista
-function changeData(namn, datum, bild){
-
-   let starSign = document.querySelector(".starSign")
-   let date = document.querySelector(".date")
-   let image = document.querySelector(".image")
-
-   starSign.innerText = namn 
-   date.innerText = datum
-   image.src =  "./assets/" + bild
+   addHidden();
 }
 
 
-// Request för POST (Add och Update)
+
+
+
+
+
+
+
+// Request för POST och DELETE (addHoroscope, updateHoroscope och deleteHoroscope)
 async function makeRequest(func, url, method){
 
    const inputDate = document.querySelector("#birthday").value 
@@ -119,21 +176,12 @@ async function makeRequest(func, url, method){
    }
 }
 
-// Request för DELETE (Försökte med view, funkar inte än)
-async function makeRequest2(func, url, method){
 
-   try{
-       let response = await fetch(url, {
-           method: method
-       })
 
-       let result = await response.json()
-       func(result);
 
-   }catch(err){
-       console.log(err)
-   }
-}
+
+
+
 
 
 // Hämtar horoskop från SESSION via viewHoroscope.php med inputreferens - Printar ut output.
@@ -147,18 +195,15 @@ async function viewHoroscope(){
 
        if(result) {
 
-           changeData(result.name, result.date, result.image)
+            changeData(result.name, result.date, result.image)
 
-           document.querySelector(".horoscope").classList.remove("hidden")
-           document.querySelector(".buttons").classList.remove("hidden")
-           document.querySelector("#update1").classList.remove("hidden")
-           document.querySelector("#delete1").classList.remove("hidden")
-           document.querySelector(".birth").classList.add("hidden")
-           document.querySelector("#save1").classList.add("hidden")
-           document.querySelector(".btnArrow").classList.add("hidden")
+            removeHidden();
+            addHidden();
+            document.querySelector(".birth").classList.add("hidden")
+
        } else {
-           document.querySelector(".btnArrow").classList.add("hidden")
-           document.querySelector(".buttons").classList.add("hidden") 
+            document.querySelector(".btnArrow").classList.add("hidden")
+            document.querySelector(".buttons").classList.add("hidden") 
        }
 
    } catch(err){
@@ -206,10 +251,9 @@ async function getHoroscope(){
 function addHoroscope(result){
 
    if(result){
-       document.querySelector("#update1").classList.remove("hidden")
-       document.querySelector("#delete1").classList.remove("hidden")
-       document.querySelector(".btnArrow").classList.add("hidden")
-       document.querySelector("#save1").classList.add("hidden")
+        document.querySelector("#update1").classList.remove("hidden")
+        document.querySelector("#delete1").classList.remove("hidden")
+        addHidden();
    } else {
        alert("Kunde inte lägga till horoskop")
    }
@@ -217,15 +261,12 @@ function addHoroscope(result){
 }
 
 
-// Första "uppdatera mitt horoskåp"-knappen. Kommer till val av datum och sedan en ny uppdatera-knapp. Inget från PHP på denna.
+// Första "uppdatera mitt horoskop"-knappen. Kommer till val av datum och sedan en ny uppdatera-knapp. Inget från PHP på denna.
 function updateH(){
 
-   document.querySelector(".birth").classList.remove("hidden")
-   document.querySelector("#getBtn").classList.add("hidden")
-   document.querySelector("#myVideo").classList.add("blur")
-   document.querySelector(".horoscope").classList.add("blur")
-   document.querySelector(".buttons").classList.add("blur")
-   document.querySelector(".birth").classList.add("absolute")
+    addBlur();
+    document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#getBtn").classList.add("hidden")
 
    let updateButton = document.querySelector("#updateBtn")
    updateButton.classList.remove("hidden")
@@ -238,17 +279,10 @@ function updateH(){
 function updateHoroscope(result) {
 
    if(result){
-       document.querySelector(".horoscope").classList.remove("hidden")
-       document.querySelector(".buttons").classList.remove("hidden")
-       document.querySelector("#update1").classList.remove("hidden")
-       document.querySelector("#delete1").classList.remove("hidden")
-       document.querySelector("#myVideo").classList.remove("blur")
-       document.querySelector(".horoscope").classList.remove("blur")
-       document.querySelector(".buttons").classList.remove("blur")
-       document.querySelector(".birth").classList.remove("absolute")
-       document.querySelector(".birth").classList.add("hidden")
-       document.querySelector("#save1").classList.add("hidden")
-       document.querySelector(".btnArrow").classList.add("hidden")
+        removeHidden();
+        addHidden();
+        removeBlur();
+        document.querySelector(".birth").classList.add("hidden")
    
    } else{
        alert("Kunde inte uppdatera horoskop")
