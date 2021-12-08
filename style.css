@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    font-family: 'Parisienne', cursive;
+    font-family: 'Playfair Display', serif;
 }
 
 body {
@@ -52,29 +54,37 @@ form{
     font-size: 40px;
     margin-left: 10px;
     margin-right: 10px;
-    font-family: 'Parisienne', cursive;
-    font-family: 'Playfair Display', serif;
     color: rgba(255, 255, 255, 0.753);
 }
 
+.inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 
-input[type=date] {
+
+select {
     text-align: center;
-    font-family: 'Parisienne', cursive;
-    font-family: 'Playfair Display', serif;
     font-size: 20px;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.377);
-    color: rgba(162, 205, 255, 0.63);
+    background: rgba(0, 0, 0, 0.493);
+    color: rgba(166, 204, 247, 0.781);
     height: 60px;
     width: 200px;
-
 }
 
-input[type=date]:focus {
-    background: rgba(0, 0, 0, 0.377);
-    color: rgba(99, 168, 247, 0.781);
+select:focus {
+    background: rgba(0, 0, 0, 0.493);
+    color: rgba(166, 204, 247, 0.781);
 }
+
+select option {
+    background-color: rgba(0, 0, 0, 0.884);
+}
+
+
 
 
 /* Horoscope */
@@ -163,8 +173,6 @@ img {
     height: 45px;
     width: 220px;
     font-size: 17px;
-    font-family: 'Parisienne', cursive;
-    font-family: 'Playfair Display', serif;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.493);
     color: white;
@@ -246,6 +254,14 @@ img {
     height: 90vh; 
 }
 
+.inputs {
+    gap: 10px;
+}
+
+select {
+    width: 150px;
+}
+
 }
 
 @media screen and (max-width: 350px) {
@@ -266,11 +282,6 @@ h3 {
     font-size: 15px;
 }   
 
-input[type=date]{
-    width: 190px;
-
-}
-
 .btn{
 height: 45px;
 width: 200px;
@@ -282,6 +293,11 @@ font-size: 15px;
     font-size: 28px;
 }
 
+.inputs {
+    flex-direction: column; 
+    gap: 10px;
+}
+
 }    
 
 @media screen and (max-width: 300px) {
@@ -289,6 +305,4 @@ font-size: 15px;
 .label {
     font-size: 22px;
 }
-
-
 }

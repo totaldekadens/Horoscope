@@ -158,7 +158,9 @@ function getBack(){
 // Request för POST och DELETE (addHoroscope, updateHoroscope och deleteHoroscope)
 async function makeRequest(func, url, method){
 
-   const inputDate = document.querySelector("#birthday").value 
+    const inputMonth = document.querySelector("#month").value
+    const inputDay = document.querySelector("#day").value
+    const inputDate = inputMonth + inputDay
 
    let body = new FormData() 
    body.set("inputDate", inputDate)
@@ -219,8 +221,12 @@ async function getHoroscope(){
 
    try {
 
-       const inputDate = document.querySelector("#birthday").value 
+       const inputMonth = document.querySelector("#month").value
+       const inputDay = document.querySelector("#day").value
+       const inputDate = inputMonth + inputDay
        let url = "./server/getHoroscope.php?input="+inputDate
+
+       console.log(inputDate)
        
        let response = await fetch(url)
        let result = await response.json()
