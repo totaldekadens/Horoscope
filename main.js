@@ -162,6 +162,11 @@ async function makeRequest(func, url, method){
     const inputDay = document.querySelector("#day").value
     const inputDate = inputMonth + inputDay
 
+    if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131") {
+        alert("Datumet existerar inte. Prova igen med ett nytt datum")
+        return
+    }    
+
    let body = new FormData() 
    body.set("inputDate", inputDate)
 
@@ -226,7 +231,10 @@ async function getHoroscope(){
        const inputDate = inputMonth + inputDay
        let url = "./server/getHoroscope.php?input="+inputDate
 
-       console.log(inputDate)
+       if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131") {
+        alert("Datumet existerar inte. Prova igen med ett nytt datum")
+        return
+        }  
        
        let response = await fetch(url)
        let result = await response.json()
