@@ -1,7 +1,8 @@
 <?php
 
+$getList = listHoroscope();
 
-function getOutput($inputDate){
+function listHoroscope(){
 
     $Horoscope = array(
         array(
@@ -97,14 +98,20 @@ function getOutput($inputDate){
         )
     );
 
+    return $Horoscope;
+};
 
-    foreach ($Horoscope as $valfritt) {
+function getOutput($inputDate, $getList){
 
-        foreach ($valfritt as $key=>$value) {
+    $Horoscope = $getList;
+
+    foreach ($Horoscope as $starSign) {
+
+        foreach ($starSign as $key=>$value) {
             
-            if($inputDate >= $valfritt['startdate'] && $inputDate <= $valfritt['enddate']) {
+            if($inputDate >= $starSign['startdate'] && $inputDate <= $starSign['enddate']) {
                 
-                return $valfritt;
+                return $starSign;
 
             };
 

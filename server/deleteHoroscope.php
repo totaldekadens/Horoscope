@@ -3,23 +3,26 @@
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD']) {
+try {
 
-        if($_SERVER["REQUEST_METHOD"] == "DELETE") {
-               
-                if($_SESSION["horoscope"]) {
-                        session_destroy();
+        if ($_SERVER['REQUEST_METHOD']) {
 
-                        echo json_encode(true);
-                } else {
-                        echo json_encode(false);
+                if($_SERVER["REQUEST_METHOD"] == "DELETE") {
+                
+                        if(isset($_SESSION["horoscope"])) {
+                                session_destroy();
+
+                                echo json_encode(true);
+                        } else {
+                                echo json_encode(false);
+                        }
                 }
-               
+
         } else {
                 echo json_encode(false); 
-        } 
+        }
 
-}else {
-        echo json_encode(false); 
-};
+} catch(Exception $err) {
+        error_log($err);
+}
 ?>

@@ -2,29 +2,33 @@
 <?php 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD']) {
+try {
 
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER['REQUEST_METHOD']) {
 
-                if($_SESSION["horoscope"]) {
-                        $inputDate =  $_POST["inputDate"]; 
+                if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                        require_once("./listHoroscope.php");
-        
-                        $horoscope = getOutput($_POST["inputDate"]);
-                        $_SESSION["horoscope"] = $horoscope;
-        
-                        echo json_encode(true);
+                        if(isset($_SESSION["horoscope"])) {
+                                $inputDate =  $_POST["inputDate"]; 
 
-                } else{
-                        echo json_encode(false);
-                } 
+                                require_once("./listHoroscope.php");
+                
+                                $horoscope = getOutput($_POST["inputDate"], $getList);
+                                $_SESSION["horoscope"] = $horoscope;
+                
+                                echo json_encode(true);
+
+                        } else{
+                                echo json_encode(false);
+                        } 
+
+                }
 
         } else {
                 echo json_encode(false); 
-        } 
+        }
 
-} else {
-        echo json_encode(false); 
-};
+} catch(Exception $err) {
+        error_log($err);
+}
 ?>
