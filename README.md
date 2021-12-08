@@ -4,6 +4,8 @@ Inlämningsuppgift: Målet med uppgiften är att bygga ett enkelt REST API för 
 <br>
 <br>
 
+Instruktioner: Behöver öppnas via MAMP för att fungera korrekt. 
+
 
 ### addHoroscope.php
 
