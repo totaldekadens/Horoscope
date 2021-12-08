@@ -17,6 +17,10 @@ main, .birth, form, .horoscope, .container, .containerContent {
     align-items: center;
 }
 
+main {
+    height: 90vh;
+}
+
 #myVideo{
     min-width: 100%;
     min-height: 100%; 
@@ -247,7 +251,7 @@ img {
 }
 
 .imageContainer {
-    width: 200px;
+    width: 140px;
     }
 
 .birth {
@@ -275,7 +279,7 @@ select {
 }
 
 .imageContainer {
-    width: 150px;
+    width: 110px;
     }
 
 h3 {
