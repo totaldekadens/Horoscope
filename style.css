@@ -147,6 +147,7 @@ h1, h3, p{
 
 .imageContainer {
     max-width: 220px;
+    max-height: 310px;
 }
 
 img {
