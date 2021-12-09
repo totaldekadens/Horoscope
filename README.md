@@ -1,12 +1,13 @@
 # Horoscope
-Inlämningsuppgift: Målet med uppgiften är att bygga ett enkelt REST API för sitt horoskop. Ni ska minst använda följande php filer i ert projekt:
+
+Instruktioner: Projektet behöver öppnas via en backend-server (tex MAMP) för att fungera korrekt. Spara ner projektet i serverns "htdocs"-mapp.
 
 <br>
 <br>
 
-Instruktioner: Behöver öppnas via MAMP (eller liknande?) för att fungera korrekt. 
+## Inlämningsuppgift: 
+Målet med uppgiften är att bygga ett enkelt REST API för sitt horoskop. Ni ska minst använda följande php filer i ert projekt:
 
-<br>
 <br>
 
 ### addHoroscope.php
@@ -44,7 +45,7 @@ Sidan ska bara gå att begära via DELETE,  den ska ta bort det sparade horoskop
 
 <br>
 
-### getHoroscope.php - ADDERAT
+### getHoroscope.php - Adderat på eget initiativ.
 
 Sidan skall bara gå att begära via GET. Den ska kolla efter ett födelsedatum i $_GET, räkna ut vilket horoskop födelsedatumet tillhör och skriva ut det i output.
 
@@ -60,7 +61,7 @@ Knapparna ska ha varsin onClick som kör varsin Javascriptfunktion:
 
  <br>
 
-### Knapp: "spara mitt horoskop"
+### Knapp: "Spara mitt horoskop"
 
 onClick: ska göra ett anrop via fetch till addHoroscope.php med innehållet i input:en.
 
@@ -70,7 +71,7 @@ Om ni vill ha stilpoäng så ska denna knapp bara synas om horoskopet inte är s
 
  <br>
 
-### Knapp: "uppdatera mitt horoskop"
+### Knapp: "Uppdatera mitt horoskop"
 
 onClick: ska göra ett anrop via fetch till updateHoroscope.php med innehållet i input:en. Efter anropet ska innehållet i div:en uppdateras.
 
@@ -78,7 +79,7 @@ Om ni vill ha stilpoäng så ska denna knapp inte synas eller vara inaktiverat o
 
  <br>
 
-### Knapp: "radera mitt horoskop"
+### Knapp: "Radera mitt horoskop"
 
 onClick: ska göra ett anrop via fetch till deleteHoroscope.php. Efter anropet ska innehållet i div:en uppdateras om horoskopet togs bort.
 
@@ -88,7 +89,7 @@ När man först går ut på sidan ska även div:en uppdateras via ett anrop till
 
 <br>
 
-### Knapp: "Hämta mitt horoskop" - ADDERAT
+### Knapp: "Hämta mitt horoskop" - Adderat på eget initiativ.
 
 onClick: ska göra ett anrop via fetch till getHoroscope.php med innehållet i input:en.
 
