@@ -1,10 +1,6 @@
 <?php
 
-$getList = listHoroscope();
-
-function listHoroscope(){
-
-    $Horoscope = array(
+    $getHoroscope = array(
         array(
             "startdate" => "0121",
             "enddate" => "0218",
@@ -98,27 +94,15 @@ function listHoroscope(){
         )
     );
 
-    return $Horoscope;
-};
+function getOutput($inputDate, $getHoroscope){
 
-function getOutput($inputDate, $getList){
-
-    $Horoscope = $getList;
-
-    foreach ($Horoscope as $starSign) {
-
-        foreach ($starSign as $key=>$value) {
+    foreach ($getHoroscope as $starSign) {
+   
+        if($inputDate >= $starSign['startdate'] && $inputDate <= $starSign['enddate']) {
             
-            if($inputDate >= $starSign['startdate'] && $inputDate <= $starSign['enddate']) {
-                
-                return $starSign;
-
-            };
-
+            return $starSign;
         };
-
     };   
-
 };
 
 ?>
