@@ -27,21 +27,21 @@
             "enddate" => "0520",
             "name" => "Oxen",
             "image" => "taurus.png",
-            "date" => "20 april –20 maj"
+            "date" => "20 april – 20 maj"
         ),
         array(
             "startdate" => "0521",
             "enddate" => "0620",
             "name" => "Tvillingarna",
             "image" => "gemini.png",
-            "date" => "21 maj –20 juni"
+            "date" => "21 maj – 20 juni"
         ),
         array(
             "startdate" => "0621",
             "enddate" => "0721",
             "name" => "Kräftan",
             "image" => "cancer.png",
-            "date" => "21 juni –21 juli"
+            "date" => "21 juni – 21 juli"
         ),
         array(
             "startdate" => "0722",
