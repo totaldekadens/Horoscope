@@ -299,7 +299,7 @@ async function viewHoroscope(){
        let response = await fetch(url)
        let result = await response.json()
 
-       console.log("view: " + result + " <br> ", "object: " + Object.values(result))
+       console.log("view: " + result + " || ", "object: " + Object.values(result))
        
        if(result) {
 
