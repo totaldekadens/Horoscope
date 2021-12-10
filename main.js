@@ -11,6 +11,8 @@ function onLoad(){
 
 
 // Lägger till allt innehåll på sidan
+
+
 function addContentToWebpage(){
 
 let main = document.getElementsByTagName("main")[0]
@@ -53,6 +55,7 @@ back.innerHTML = '<i class="fas fa-arrow-left"></i>'
 main.appendChild(back) 
 back.addEventListener("click", getBack)
 
+// Vid klick, kallar på funktionen makeRequest via en anononym funktion och tar med argument.
 let save = document.createElement("div")
 save.classList.add("btn")
 save.setAttribute("id", "save1")
@@ -62,6 +65,7 @@ save.addEventListener("click", () => {
    makeRequest(addHoroscope,"./server/addHoroscope.php", "POST")
 })
 
+// Vid klick, kallar på funktionen updateH
 let update = document.createElement("div")
 update.classList.add("btn")
 update.setAttribute("id", "update1")
@@ -69,6 +73,7 @@ update.innerText = "Uppdatera mitt horoskop"
 buttons.appendChild(update) 
 update.addEventListener("click", updateH)
 
+// Vid klick, kallar på funktionen makeRequest via en anononym funktion och tar med argument.
 let deleteBtn = document.createElement("div")
 deleteBtn.classList.add("btn")
 deleteBtn.setAttribute("id", "delete1")
@@ -78,11 +83,24 @@ deleteBtn.addEventListener("click", () => {
    makeRequest(deleteHoroscope,"./server/deleteHoroscope.php", "DELETE")
 })
 
+// Vid klick, kallar på funktionen getHoroscope
 document.querySelector("#getBtn").addEventListener("click", getHoroscope)
 
 }
 
-// Anpassar info från SESSION / PHP-lista
+
+
+
+
+
+
+
+
+
+// Anpassar output beroende på vad som hämtas från från SESSION / PHP-lista 
+
+
+
 function changeData(namn, datum, bild){
 
     let starSign = document.querySelector(".starSign")
@@ -103,10 +121,9 @@ function changeData(namn, datum, bild){
 
 
 
+// STYLING - Mestadels funktioner som visar eller gömmer vissa element.  
 
 
-
-// Funktioner som visar eller gömmer vissa element. 
 
 function addHidden(){
     document.querySelector("#save1").classList.add("hidden")
@@ -134,13 +151,26 @@ function removeBlur(){
     document.querySelector(".birth").classList.remove("absolute")
 }
 
+function styleDelete(){
+    document.querySelector("#getBtn").classList.remove("hidden")
+    document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#updateBtn").classList.add("hidden")
+    document.querySelector(".horoscope").classList.add("hidden") 
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+    document.querySelector("#save1").classList.add("hidden")
+}
 
+function styleGet(){
+    document.querySelector(".horoscope").classList.remove("hidden")
+    document.querySelector("#save1").classList.remove("hidden")
+    document.querySelector(".btnArrow").classList.remove("hidden")
+    document.querySelector(".buttons").classList.remove("hidden")
+    document.querySelector(".birth").classList.add("hidden")
+    document.querySelector("#update1").classList.add("hidden")
+    document.querySelector("#delete1").classList.add("hidden")
+}
 
-
-
-
-
-// Tillbaka-länk. Går tillbaka ett steg
 function getBack(){
    document.querySelector(".birth").classList.remove("hidden")
    document.querySelector(".horoscope").classList.add("hidden") 
@@ -154,18 +184,30 @@ function getBack(){
 
 
 
+/* REQUESTS */
 
-// Request för POST och DELETE (addHoroscope, updateHoroscope och deleteHoroscope)
+
+
+
+
+// Request för POST och DELETE (addHoroscope, updateHoroscope och deleteHoroscope) 
+
 async function makeRequest(func, url, method){
 
     const inputMonth = document.querySelector("#month").value
     const inputDay = document.querySelector("#day").value
     const inputDate = inputMonth + inputDay
 
-    if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131") {
+    if(func != deleteHoroscope) {
+
+        if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131" || 
+        inputDate <= 0 || inputMonth == "" || inputDay == "") {
+
         alert("Datumet existerar inte. Prova igen med ett nytt datum")
         return
-    }    
+        } 
+    }
+   
 
    let body = new FormData() 
    body.set("inputDate", inputDate)
@@ -175,8 +217,10 @@ async function makeRequest(func, url, method){
            method: method, 
            body: body})
 
-       let result = response.json()
+       let result = await response.json()
        func(result);
+
+       console.log("makeRequest: " + result)
 
    }catch(err){
        console.log(err)
@@ -184,11 +228,66 @@ async function makeRequest(func, url, method){
 }
 
 
+function addHoroscope(result){
+
+    if(result){
+         alert("Ditt horoskop är sparat")
+         document.querySelector("#update1").classList.remove("hidden")
+         document.querySelector("#delete1").classList.remove("hidden")
+         addHidden();
+    } else {
+        alert("Kunde inte lägga till horoskop")
+    }
+
+    viewHoroscope();
+ }
 
 
+// Första "uppdatera mitt horoskop"-knappen. Vid klick, kallar på funktionen makeRequest via en anononym funktion och tar med argument.
+function updateH(){
+
+    addBlur();
+    document.querySelector(".birth").classList.remove("hidden")
+    document.querySelector("#getBtn").classList.add("hidden")
+
+   let updateButton = document.querySelector("#updateBtn")
+   updateButton.classList.remove("hidden")
+   updateButton.addEventListener("click", () => {
+       makeRequest(updateHoroscope,"./server/updateHoroscope.php", "POST")
+   })
+}
 
 
+function updateHoroscope(result) {
 
+    if(result){
+         alert("Ditt nya horoskop är sparat")
+         removeHidden();
+         addHidden();
+         removeBlur();
+         document.querySelector(".birth").classList.add("hidden")
+    
+    } else{
+        alert("Kunde inte uppdatera horoskop")
+    }
+ 
+    viewHoroscope();
+ }
+
+
+async function deleteHoroscope(result){
+
+    if(result){
+         alert("Ditt horoskop är raderat")
+         styleDelete();
+ 
+    } else {
+        alert("Fanns inget horoskop att radera")
+    }
+ 
+    viewHoroscope();
+ }
+ 
 
 
 // Hämtar horoskop från SESSION via viewHoroscope.php med inputreferens - Printar ut output.
@@ -200,6 +299,8 @@ async function viewHoroscope(){
        let response = await fetch(url)
        let result = await response.json()
 
+       console.log("view: " + result + " <br> ", "object: " + Object.values(result))
+       
        if(result) {
 
             changeData(result.name, result.date, result.image)
@@ -231,23 +332,21 @@ async function getHoroscope(){
        const inputDate = inputMonth + inputDay
        let url = "./server/getHoroscope.php?input="+inputDate
 
-       if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131") {
-        alert("Datumet existerar inte. Prova igen med ett nytt datum")
-        return
+       if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131" || 
+        inputDate <= 0 || inputMonth == "" || inputDay == "") {
+        
+            alert("Datumet existerar inte. Prova igen med ett nytt datum")
+            return
         }  
        
        let response = await fetch(url)
        let result = await response.json()
 
+       console.log("get: " + Object.values(result))
+
        if(result) {
-           document.querySelector(".horoscope").classList.remove("hidden")
-           document.querySelector("#save1").classList.remove("hidden")
-           document.querySelector(".btnArrow").classList.remove("hidden")
-           document.querySelector(".buttons").classList.remove("hidden")
-           document.querySelector(".birth").classList.add("hidden")
-           document.querySelector("#update1").classList.add("hidden")
-           document.querySelector("#delete1").classList.add("hidden")
-           changeData(result.name, result.date, result.image)
+            styleGet();
+            changeData(result.name, result.date, result.image)
        } else {
            alert("Horoskopet kunde inte hittas")
        }
@@ -257,71 +356,6 @@ async function getHoroscope(){
        throw err
    } 
 
-}
-
-
-
-// Lägger till horoskop i SESSION via addHoroscope.php om result=true
-function addHoroscope(result){
-
-   if(result){
-        document.querySelector("#update1").classList.remove("hidden")
-        document.querySelector("#delete1").classList.remove("hidden")
-        addHidden();
-   } else {
-       alert("Kunde inte lägga till horoskop")
-   }
-   viewHoroscope();
-}
-
-
-// Första "uppdatera mitt horoskop"-knappen. Kommer till val av datum och sedan en ny uppdatera-knapp. Inget från PHP på denna.
-function updateH(){
-
-    addBlur();
-    document.querySelector(".birth").classList.remove("hidden")
-    document.querySelector("#getBtn").classList.add("hidden")
-
-   let updateButton = document.querySelector("#updateBtn")
-   updateButton.classList.remove("hidden")
-   updateButton.addEventListener("click", () => {
-       makeRequest(updateHoroscope,"./server/updateHoroscope.php", "POST")
-   })
-}
-
-// Updaterar horoskop i SESSION via updateHoroscope.php om result=true
-function updateHoroscope(result) {
-
-   if(result){
-        removeHidden();
-        addHidden();
-        removeBlur();
-        document.querySelector(".birth").classList.add("hidden")
-   
-   } else{
-       alert("Kunde inte uppdatera horoskop")
-   }
-
-   viewHoroscope();
-}
-
-
-// Raderar horoskop i SESSION via deleteHoroscope.php om result=true
-async function deleteHoroscope(result){
-
-   if(result){
-       document.querySelector("#getBtn").classList.remove("hidden")
-       document.querySelector(".birth").classList.remove("hidden")
-       document.querySelector("#updateBtn").classList.add("hidden")
-       document.querySelector(".horoscope").classList.add("hidden") 
-       document.querySelector("#update1").classList.add("hidden")
-       document.querySelector("#delete1").classList.add("hidden")
-       document.querySelector("#save1").classList.add("hidden")
-   } else {
-       alert("Fanns inget horoskop att radera")
-   }
-
-   viewHoroscope();
 }
 
 
