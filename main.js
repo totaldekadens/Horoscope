@@ -1,8 +1,8 @@
 
 // Funktioner som startar direkt när sidan laddas
-function onLoad(){
+async function onLoad(){
     addContentToWebpage();
-    viewHoroscope();
+    await viewHoroscope();
 }
 
 
@@ -203,7 +203,7 @@ async function makeRequest(func, url, method){
         if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131" || 
         inputDate <= 0 || inputMonth == "" || inputDay == "") {
 
-        alert("Datumet existerar inte. Prova igen med ett nytt datum")
+        alert("Dubbelkolla ditt datum och försök igen.")
         return
         } 
     }
@@ -218,9 +218,10 @@ async function makeRequest(func, url, method){
            body: body})
 
        let result = await response.json()
-       func(result);
 
-       console.log("makeRequest: " + result)
+       console.log(result)
+
+       func(result);
 
    }catch(err){
        console.log(err)
@@ -299,7 +300,7 @@ async function viewHoroscope(){
        let response = await fetch(url)
        let result = await response.json()
 
-       console.log("view: " + result + " || ", "object: " + Object.values(result))
+       console.log(result)
        
        if(result) {
 
@@ -335,14 +336,14 @@ async function getHoroscope(){
        if(inputDate == "0230" || inputDate == "0231" || inputDate == "0431" ||  inputDate == "0631" || inputDate == "0931" ||  inputDate == "1131" || 
         inputDate <= 0 || inputMonth == "" || inputDay == "") {
         
-            alert("Datumet existerar inte. Prova igen med ett nytt datum")
+            alert("Dubbelkolla ditt datum och försök igen.")
             return
         }  
        
        let response = await fetch(url)
        let result = await response.json()
 
-       console.log("get: " + Object.values(result))
+       console.log(result)
 
        if(result) {
             styleGet();
