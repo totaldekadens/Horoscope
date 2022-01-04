@@ -99,3 +99,4 @@ Efter anropet ska innehållet i div:en uppdateras.
 
 Länk till repo: https://github.com/totaldekadens/Horoscope/
 
+Temporär länk till hemsidan: http://missweb.se/
