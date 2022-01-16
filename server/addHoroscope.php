@@ -15,7 +15,7 @@ try {
 
                                         require_once("./listHoroscope.php");
                         
-                                        $horoscope = getOutput($_POST["inputDate"], $getHoroscope);
+                                        $horoscope = getOutput($inputDate, $getHoroscope);
                                         $_SESSION["horoscope"] = $horoscope;
                         
                                         echo json_encode(true);

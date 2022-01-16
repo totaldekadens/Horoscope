@@ -12,7 +12,7 @@ try {
                 $inputDate =  $_GET["input"]; 
 
                 require_once("./listHoroscope.php");
-                $horoscope = getOutput($_GET["input"], $getHoroscope);
+                $horoscope = getOutput($inputDate, $getHoroscope);
     
                 echo json_encode($horoscope); 
                 exit;
